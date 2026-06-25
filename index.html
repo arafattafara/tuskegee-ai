@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tuskegee AI Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <h1>Tuskegee AI Assistant</h1>
+      <p>Ask questions using Tuskegee-specific information and connected AI.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card intro-card">
+      <h2>AI Prompt Knowledge Base</h2>
+      <p>
+        This page loads a local Tuskegee knowledge file and sends it with your question
+        to an LLM through a backend API endpoint. Do not put API keys directly in GitHub Pages.
+      </p>
+    </section>
+
+    <section class="card chat-card">
+      <label for="question">Ask a Tuskegee-related question</label>
+      <textarea id="question" rows="4" placeholder="Example: What AI literacy programs are being planned at Tuskegee University?"></textarea>
+      <button id="askBtn">Ask AI</button>
+      <div id="status" class="status"></div>
+      <div id="answer" class="answer"></div>
+    </section>
+
+    <section class="card">
+      <h2>Loaded Tuskegee Data Preview</h2>
+      <pre id="dataPreview">Loading tuskegee-data.json...</pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for GitHub Pages. Connect the API endpoint in <code>script.js</code>.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

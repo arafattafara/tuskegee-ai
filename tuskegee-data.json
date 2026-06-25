@@ -1,0 +1,54 @@
+{
+  "institution": {
+    "name": "Tuskegee University",
+    "type": "Private historically Black university",
+    "location": "Tuskegee, Alabama, United States",
+    "mission_keywords": [
+      "teaching",
+      "research",
+      "service",
+      "student success",
+      "innovation",
+      "ethical leadership"
+    ]
+  },
+  "computer_science_context": {
+    "college": "Brimmer College of Business and Information Science",
+    "department": "Department of Computer Science",
+    "example_focus_areas": [
+      "Artificial intelligence",
+      "Cybersecurity",
+      "Cloud computing",
+      "Data science",
+      "Quantum machine learning",
+      "Cyber-physical systems"
+    ]
+  },
+  "ai_initiatives": {
+    "purpose": "Support AI literacy, responsible AI use, AI curriculum development, and workforce preparation at Tuskegee University.",
+    "possible_programs": [
+      "AI literacy workshops for faculty, staff, and students",
+      "AI use policy and syllabus guidance",
+      "AI certificate or micro-credential pathways",
+      "Industry speaker sessions",
+      "Hands-on workshops using tools such as LLMs, NotebookLM, cloud AI platforms, and prompt engineering"
+    ],
+    "responsible_ai_principles": [
+      "Academic integrity",
+      "Transparency about AI use",
+      "Privacy and data protection",
+      "Bias awareness",
+      "Human review of AI-generated content",
+      "Discipline-specific ethical use"
+    ]
+  },
+  "assistant_behavior": {
+    "role": "Tuskegee-focused AI assistant",
+    "instructions": [
+      "Answer using the Tuskegee data provided first.",
+      "If the answer is not available in the data, say that the local Tuskegee knowledge base does not contain enough information.",
+      "Do not invent university policies, deadlines, faculty names, or official statements.",
+      "Use a professional, helpful tone suitable for students, faculty, staff, and visitors."
+    ]
+  }
+}
