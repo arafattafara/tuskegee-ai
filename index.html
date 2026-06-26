@@ -1,60 +1,78 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tuskegee AI Assistant</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
-    textarea { width: 100%; height: 90px; padding: 10px; }
-    button { padding: 10px 20px; margin-top: 10px; }
-    pre { background: #f4f4f4; padding: 15px; white-space: pre-wrap; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tuskegee AI Assistant</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-  <h1>Tuskegee AI Assistant</h1>
 
-  <textarea id="q" placeholder="Ask a question about Tuskegee University"></textarea>
-  <br>
-  <button onclick="ask()">Ask</button>
+<header class="header">
 
-  <h3>Answer</h3>
-  <pre id="out">Ready.</pre>
+    <div class="logo-area">
+        <img src="logo.png" class="logo">
+    </div>
 
-  <script>
-    const API_URL = "https://chat-l4rexhru5q-uc.a.run.app";
+    <div class="title-area">
+        <h1>Tuskegee AI Assistant</h1>
+        <p>Your AI Guide to Tuskegee University</p>
+    </div>
 
-    async function ask() {
-      const question = document.getElementById("q").value.trim();
-      const out = document.getElementById("out");
+</header>
 
-      if (!question) {
-        out.textContent = "Please type a question.";
-        return;
-      }
+<main>
 
-      out.textContent = "Thinking...";
+<div class="chat-card">
 
-      try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question })
-        });
+    <div class="welcome">
 
-        const text = await response.text();
+        <h2>👋 Welcome</h2>
 
-        try {
-          const data = JSON.parse(text);
-          out.textContent = data.answer || data.error || text;
-        } catch {
-          out.textContent = text;
-        }
+        <p>
+        Ask anything about Tuskegee University.
+        </p>
 
-      } catch (error) {
-        out.textContent = "Frontend error: " + error.message;
-        console.error(error);
-      }
-    }
-  </script>
+        <p class="small">
+        Answers are generated using Tuskegee University information.
+        </p>
+
+    </div>
+
+    <div id="conversation" class="conversation"></div>
+
+    <div class="input-area">
+
+        <textarea
+            id="q"
+            placeholder="Ask about admissions, programs, faculty, research..."
+        ></textarea>
+
+        <button onclick="ask()">
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+</main>
+
+<footer>
+
+Enter to Learn • Depart to Serve
+
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
+```
