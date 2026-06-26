@@ -1,59 +1,72 @@
-// Your Firebase Function URL
 const API_URL = "https://chat-l4rexhru5q-uc.a.run.app";
 
-async function ask() {
-    const questionBox = document.getElementById("q");
-    const output = document.getElementById("out");
+function addMessage(role, text) {
+  const conversation = document.getElementById("conversation");
+  const message = document.createElement("div");
+  message.className = "message " + role;
 
-    const question = questionBox.value.trim();
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = role === "user" ? "You" : "TU";
 
-    if (!question) {
-        output.textContent = "Please enter a question.";
-        return;
-    }
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
 
-    output.textContent = "Thinking...";
-
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                question: question
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Server returned ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data.answer) {
-            output.textContent = data.answer;
-        } else if (data.error) {
-            output.textContent = "Error: " + data.error;
-        } else {
-            output.textContent = "No response received.";
-        }
-
-    } catch (err) {
-        console.error(err);
-        output.textContent =
-            "Unable to connect to the AI service.\n\n" + err.message;
-    }
+  message.appendChild(avatar);
+  message.appendChild(bubble);
+  conversation.appendChild(message);
+  conversation.scrollTop = conversation.scrollHeight;
+  return bubble;
 }
 
-// Allow pressing Enter to submit
-document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("q");
-    if (input) {
-        input.addEventListener("keypress", function (e) {
-            if (e.key === "Enter") {
-                ask();
-            }
-        });
+function fillQuestion(question) {
+  document.getElementById("q").value = question;
+  ask();
+}
+
+async function ask() {
+  const questionInput = document.getElementById("q");
+  const question = questionInput.value.trim();
+
+  if (!question) {
+    addMessage("assistant", "Please type a question first.");
+    return;
+  }
+
+  addMessage("user", question);
+  questionInput.value = "";
+  const thinkingBubble = addMessage("assistant", "Thinking...");
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ question })
+    });
+
+    const text = await response.text();
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { answer: text };
     }
+
+    thinkingBubble.textContent = data.answer || data.error || "No response received.";
+  } catch (error) {
+    console.error(error);
+    thinkingBubble.textContent = "Unable to connect to the AI backend. Please check the API URL and CORS settings.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("q");
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      ask();
+    }
+  });
 });

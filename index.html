@@ -1,78 +1,56 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Tuskegee AI Assistant</title>
-
-<link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tuskegee AI Assistant</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-
-<header class="header">
-
-    <div class="logo-area">
-        <img src="logo.png" class="logo">
-    </div>
-
-    <div class="title-area">
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="logo-box">
+        <img src="logo.png" alt="Tuskegee University Logo" onerror="this.style.display='none'; document.querySelector('.logo-fallback').style.display='flex';" />
+        <div class="logo-fallback">TU</div>
+      </div>
+      <div class="brand-text">
         <h1>Tuskegee AI Assistant</h1>
-        <p>Your AI Guide to Tuskegee University</p>
+        <p>Your AI guide to Tuskegee University</p>
+      </div>
     </div>
+  </header>
 
-</header>
+  <main class="main">
+    <section class="hero-card">
+      <div class="seal">TU</div>
+      <h2>Hello! 👋</h2>
+      <p>Ask me anything about Tuskegee University. I will answer using Tuskegee University information.</p>
 
-<main>
+      <div class="quick-actions">
+        <button type="button" onclick="fillQuestion('What is Tuskegee University?')">What is Tuskegee University?</button>
+        <button type="button" onclick="fillQuestion('What graduate programs are offered?')">Graduate programs</button>
+        <button type="button" onclick="fillQuestion('Tell me about Computer Science at Tuskegee University.')">Computer Science</button>
+      </div>
 
-<div class="chat-card">
+      <div id="conversation" class="conversation">
+        <div class="message assistant">
+          <div class="avatar">TU</div>
+          <div class="bubble">Welcome! Type your question below and click Send.</div>
+        </div>
+      </div>
 
-    <div class="welcome">
+      <div class="input-card">
+        <textarea id="q" placeholder="Type your question about Tuskegee University..."></textarea>
+        <button type="button" onclick="ask()">Send</button>
+      </div>
+    </section>
+  </main>
 
-        <h2>👋 Welcome</h2>
+  <footer class="site-footer">
+    <div>1200 W. Montgomery Road · Tuskegee, AL 36088</div>
+    <div class="motto">“Enter to Learn, Depart to Serve”</div>
+  </footer>
 
-        <p>
-        Ask anything about Tuskegee University.
-        </p>
-
-        <p class="small">
-        Answers are generated using Tuskegee University information.
-        </p>
-
-    </div>
-
-    <div id="conversation" class="conversation"></div>
-
-    <div class="input-area">
-
-        <textarea
-            id="q"
-            placeholder="Ask about admissions, programs, faculty, research..."
-        ></textarea>
-
-        <button onclick="ask()">
-            Send
-        </button>
-
-    </div>
-
-</div>
-
-</main>
-
-<footer>
-
-Enter to Learn • Depart to Serve
-
-</footer>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
-```
