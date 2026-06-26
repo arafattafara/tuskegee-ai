@@ -1,46 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Tuskegee AI Assistant</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
+    textarea { width: 100%; height: 90px; padding: 10px; }
+    button { padding: 10px 20px; margin-top: 10px; }
+    pre { background: #f4f4f4; padding: 15px; white-space: pre-wrap; }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div>
-      <h1>Tuskegee AI Assistant</h1>
-      <p>Ask questions using Tuskegee-specific information and connected AI.</p>
-    </div>
-  </header>
+  <h1>Tuskegee AI Assistant</h1>
 
-  <main class="container">
-    <section class="card intro-card">
-      <h2>AI Prompt Knowledge Base</h2>
-      <p>
-        This page loads a local Tuskegee knowledge file and sends it with your question
-        to an LLM through a backend API endpoint. Do not put API keys directly in GitHub Pages.
-      </p>
-    </section>
+  <textarea id="q" placeholder="Ask a question about Tuskegee University"></textarea>
+  <br>
+  <button onclick="ask()">Ask</button>
 
-    <section class="card chat-card">
-      <label for="question">Ask a Tuskegee-related question</label>
-      <textarea id="question" rows="4" placeholder="Example: What AI literacy programs are being planned at Tuskegee University?"></textarea>
-      <button id="askBtn">Ask AI</button>
-      <div id="status" class="status"></div>
-      <div id="answer" class="answer"></div>
-    </section>
+  <h3>Answer</h3>
+  <pre id="out">Ready.</pre>
 
-    <section class="card">
-      <h2>Loaded Tuskegee Data Preview</h2>
-      <pre id="dataPreview">Loading tuskegee-data.json...</pre>
-    </section>
-  </main>
+  <script>
+    const API_URL = "https://chat-l4rexhru5q-uc.a.run.app";
 
-  <footer>
-    <p>Built for GitHub Pages. Connect the API endpoint in <code>script.js</code>.</p>
-  </footer>
+    async function ask() {
+      const question = document.getElementById("q").value.trim();
+      const out = document.getElementById("out");
 
-  <script src="script.js"></script>
+      if (!question) {
+        out.textContent = "Please type a question.";
+        return;
+      }
+
+      out.textContent = "Thinking...";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question })
+        });
+
+        const text = await response.text();
+
+        try {
+          const data = JSON.parse(text);
+          out.textContent = data.answer || data.error || text;
+        } catch {
+          out.textContent = text;
+        }
+
+      } catch (error) {
+        out.textContent = "Frontend error: " + error.message;
+        console.error(error);
+      }
+    }
+  </script>
 </body>
 </html>
